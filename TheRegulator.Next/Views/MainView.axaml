@@ -25,14 +25,14 @@
 
 		<Grid RowDefinitions="Auto" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Background="DodgerBlue">
 		    <StackPanel  Orientation="Horizontal" Spacing="4" Margin="4" Background="Transparent">
-                <Button i:Attached.Icon="fa-copy" ToolTip.Tip="Copy (Ctrl-V)"></Button>
-                <Button i:Attached.Icon="fa-scissors" ToolTip.Tip="Cut (Ctrl-X)"></Button>
-                <Button i:Attached.Icon="fa-paste" ToolTip.Tip="Paste (Ctrl-V)"></Button>
-                <Button i:Attached.Icon="fa-trash-can" ToolTip.Tip="Delete"></Button>
-                <Button i:Attached.Icon="fa-border-all" ToolTip.Tip="Select All (Ctrl-A)"></Button>
+                <Button i:Attached.Icon="fa-copy" ToolTip.Tip="Copy (Ctrl-V)" Command="{Binding CopyCommand}"></Button>
+                <Button i:Attached.Icon="fa-scissors" ToolTip.Tip="Cut (Ctrl-X)" Command="{Binding CutCommand}"></Button>
+                <Button i:Attached.Icon="fa-paste" ToolTip.Tip="Paste (Ctrl-V)" Command="{Binding PasteCommand}"></Button>
+                <Button i:Attached.Icon="fa-trash-can" ToolTip.Tip="Delete" Command="{Binding DeleteCommand}"></Button>
+                <Button i:Attached.Icon="fa-border-all" ToolTip.Tip="Select All (Ctrl-A)" Command="{Binding SelectAllCommand}"></Button>
                 <Label>|</Label>
-                <Button i:Attached.Icon="fa-arrow-rotate-left" ToolTip.Tip="Undo (Ctrl-Z)"></Button>
-                <Button i:Attached.Icon="fa-arrow-rotate-right" ToolTip.Tip="Redo (Ctrl-Y)"></Button>
+                <Button i:Attached.Icon="fa-arrow-rotate-left" ToolTip.Tip="Undo (Ctrl-Z)" Command="{Binding UndoCommand}"></Button>
+                <Button i:Attached.Icon="fa-arrow-rotate-right" ToolTip.Tip="Redo (Ctrl-Y)" Command="{Binding RedoCommand}"></Button>
                 <Label>|</Label>
                 <Button i:Attached.Icon="fa-magnifying-glass" ToolTip.Tip="Find (Ctrl-F)"></Button>
                 <Button i:Attached.Icon="fa-right-left" ToolTip.Tip="Replace (Ctrl-H)"></Button>
@@ -65,9 +65,9 @@
 
 			<!--Regex editor-->
 			<TextBox x:Name="Editor" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                                     BorderThickness="0" BorderBrush="Transparent"
-                                     Text="{Binding Regex, Mode=TwoWay}"
-                                     CaretIndex="{Binding EditorCaretIndex, Mode=TwoWay}">
+                                     TextWrapping="Wrap" AcceptsReturn="True"
+									 BorderThickness="0" BorderBrush="Transparent"
+                                     ClearSelectionOnLostFocus="False">
                 <TextBox.ContextMenu>
 				<ContextMenu>
 					<MenuItem Header="Quick Add" i:MenuItem.Icon="fa-plus">
@@ -150,11 +150,11 @@
 						</MenuItem>
 					</MenuItem>
                     <MenuItem Header="Edit" i:MenuItem.Icon="fa-pen">
-                        <MenuItem Header="Copy (Ctrl+C)" i:MenuItem.Icon="fa-copy"></MenuItem>
-                        <MenuItem Header="Cut (Ctrl+X)" i:MenuItem.Icon="fa-scissors"></MenuItem>
-                        <MenuItem Header="Paste (Ctrl+V)" i:MenuItem.Icon="fa-paste"></MenuItem>
-                        <MenuItem Header="Delete (Del)" i:MenuItem.Icon="fa-trash-can"></MenuItem>
-                        <MenuItem Header="Select All (Ctrl+A)" i:MenuItem.Icon="fa-border-all"></MenuItem>
+                        <MenuItem Header="Copy (Ctrl+C)" i:MenuItem.Icon="fa-copy" Command="{Binding CopyCommand}"></MenuItem>
+                        <MenuItem Header="Cut (Ctrl+X)" i:MenuItem.Icon="fa-scissors" Command="{Binding CutCommand}"></MenuItem>
+                        <MenuItem Header="Paste (Ctrl+V)" i:MenuItem.Icon="fa-paste" Command="{Binding PasteCommand}"></MenuItem>
+                        <MenuItem Header="Delete (Del)" i:MenuItem.Icon="fa-trash-can" Command="{Binding DeleteCommand}"></MenuItem>
+                        <MenuItem Header="Select All (Ctrl+A)" i:MenuItem.Icon="fa-border-all" Command="{Binding SelectAllCommand}"></MenuItem>
                         <MenuItem Header="Escape selection (F9)" HotKey="F9"></MenuItem>
                         <MenuItem Header="-"></MenuItem>
                         <MenuItem Header="Undo (Ctrl+Z)" i:MenuItem.Icon="fa-arrow-rotate-left"></MenuItem>
