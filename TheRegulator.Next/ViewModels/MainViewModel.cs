@@ -1,4 +1,8 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Windows.Input;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.Input;
 
@@ -7,6 +11,8 @@ namespace TheRegulator.Next.ViewModels;
 public class MainViewModel : ViewModelBase
 {
     private TextBox? _editor;
+    private string? _inputText;
+    private string? _replaceText;
 
     public TextBox? Editor
     {
@@ -18,6 +24,22 @@ public class MainViewModel : ViewModelBase
         }
     }
 
+    public string? InputText
+    {
+        get => _inputText;
+        set => SetProperty(ref _inputText, value);
+    }
+
+    public string? ReplaceText
+    {
+        get => _replaceText;
+        set => SetProperty(ref _replaceText, value);
+    }
+
+    public string ReplaceResultText { get; set; } = string.Empty;
+
+    public ObservableCollection<MatchViewModel> Matches { get; set; } = [];
+
     public ICommand AddTextCommand { get; set; }
 
     public RelayCommand CutCommand { get; set; }
@@ -28,9 +50,8 @@ public class MainViewModel : ViewModelBase
     public RelayCommand UndoCommand { get; set; }
     public RelayCommand RedoCommand { get; set; }
     
-    public MainViewModel()
-    {
-    }
+    public RelayCommand MatchCommand { get; set; }
+    public RelayCommand ReplaceCommand { get; set; }
 
     private void SetupCommands()
     {
@@ -44,7 +65,10 @@ public class MainViewModel : ViewModelBase
         RedoCommand = new RelayCommand(Editor.Redo, () => Editor.CanRedo);
         SelectAllCommand = new RelayCommand(Editor.SelectAll);
         DeleteCommand = new RelayCommand(DeleteText);
-        
+
+        MatchCommand = new RelayCommand(RunMatch);
+        ReplaceCommand = new RelayCommand(RunReplace);
+
         Editor.PropertyChanged += (sender, args) =>
         {
             switch (args.Property.Name)
@@ -83,5 +107,42 @@ public class MainViewModel : ViewModelBase
         Editor!.Text = Editor.Text?.Remove(Editor.SelectionStart, Editor.SelectedText.Length);
         Editor.SelectionEnd = Editor.SelectionStart;
     }
-}
 
+    private void RunMatch()
+    {
+        if (string.IsNullOrWhiteSpace(Editor.Text) || string.IsNullOrWhiteSpace(InputText)) return;
+
+        try
+        {
+            Matches.Clear();
+
+            var r = new Regex(Editor.Text);
+            foreach (var capture in r.Matches(InputText).SelectMany(x => x.Captures))
+            {
+                Matches.Add(new MatchViewModel(capture.Value, capture.Index));
+            }
+        }
+        catch (Exception e)
+        {
+            //SetErrorText(e.Message);
+        }
+    }
+    
+    private void RunReplace()
+    {
+        if (string.IsNullOrWhiteSpace(Editor.Text) || string.IsNullOrWhiteSpace(InputText)) return;
+
+        try
+        {
+            Matches.Clear();
+
+            var r = new Regex(Editor.Text);
+            ReplaceResultText = r.Replace(InputText, _replaceText ?? string.Empty);
+            OnPropertyChanged(nameof(ReplaceResultText));
+        }
+        catch (Exception e)
+        {
+            //SetErrorText(e.Message);
+        }
+    }
+}

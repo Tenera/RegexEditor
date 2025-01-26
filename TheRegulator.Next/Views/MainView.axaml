@@ -23,7 +23,7 @@
 	
 	<Grid ColumnDefinitions="*,4,3*,4" RowDefinitions="Auto,*">
 
-		<Grid RowDefinitions="Auto" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Background="DodgerBlue">
+		<Grid RowDefinitions="Auto" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Background="DodgerBlue">
 		    <StackPanel  Orientation="Horizontal" Spacing="4" Margin="4" Background="Transparent">
                 <Button i:Attached.Icon="fa-copy" ToolTip.Tip="Copy (Ctrl-V)" Command="{Binding CopyCommand}"></Button>
                 <Button i:Attached.Icon="fa-scissors" ToolTip.Tip="Cut (Ctrl-X)" Command="{Binding CutCommand}"></Button>
@@ -41,8 +41,8 @@
                 <Button i:Attached.Icon="fa-file-import" ToolTip.Tip="Import text from File"></Button>
                 <Label>| Regex:</Label>
                 <Button i:Attached.Icon="fa-stethoscope" ToolTip.Tip="Analyze"></Button>
-                <Button i:Attached.Icon="fa-equals" ToolTip.Tip="Match"></Button>
-                <Button i:Attached.Icon="fa-shuffle" ToolTip.Tip="Replace"></Button>
+                <Button i:Attached.Icon="fa-equals" ToolTip.Tip="Match" Command="{Binding MatchCommand}"></Button>
+                <Button i:Attached.Icon="fa-shuffle" ToolTip.Tip="Replace" Command="{Binding ReplaceCommand}"></Button>
                 <Button i:Attached.Icon="fa-arrows-split-up-and-left" ToolTip.Tip="Split"></Button>
             </StackPanel>
         </Grid>
@@ -169,10 +169,17 @@
 
 			<TabControl Grid.Row="2" Grid.Column="0" Margin="0 -4 0 0">
 				<TabItem Header="Match">
-                    <TextBox Margin="4 0 4 4" IsReadOnly="True"></TextBox>
+                    <ListBox Margin="4 0 4 4" ItemsSource="{Binding Matches, Mode=OneWay}" 
+                             SelectionMode="Single">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding Text, Mode=OneWay, StringFormat='[{0}]'}"></TextBlock>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </TabItem>
 				<TabItem Header="Replace">
-                    <TextBox Margin="4 0 4 4" IsReadOnly="True"></TextBox>
+                    <TextBox Margin="4 0 4 4" IsReadOnly="True" Text="{Binding ReplaceResultText, Mode=OneWay}"></TextBox>
                 </TabItem>
 				<TabItem Header="Splits">
                     <DataGrid Margin="4 0 4 4"  
@@ -187,10 +194,10 @@
 
             <TabControl Grid.Row="2" Grid.Column="2" Margin="0 -4 0 0">
                 <TabItem Header="Input">
-
+                    <TextBox Text="{Binding InputText}" Margin="4 0 4 4" AcceptsReturn="True"></TextBox>
                 </TabItem>
                 <TabItem Header="Replace with">
-
+                    <TextBox Text="{Binding ReplaceText}" Margin="4 0 4 4" AcceptsReturn="True"></TextBox>
                 </TabItem>
             </TabControl>
 
