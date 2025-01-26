@@ -1,0 +1,201 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:TheRegulator.Next.ViewModels"
+             xmlns:i="https://github.com/projektanker/icons.avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TheRegulator.Next.Views.MainView"
+             x:DataType="vm:MainViewModel">
+
+    <!--<UserControl.Resources>
+        <Style x:Key="IconButtonStyle" Selector="Button.Icon">
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="Background" Value="Transparent"></Setter>
+        </Style>
+    </UserControl.Resources>-->
+
+    <Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:MainViewModel />
+	</Design.DataContext>
+	
+	<Grid ColumnDefinitions="*,4,3*,4" RowDefinitions="Auto,*">
+
+		<Grid RowDefinitions="Auto" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Background="DodgerBlue">
+		    <StackPanel  Orientation="Horizontal" Spacing="4" Margin="4" Background="Transparent">
+                <Button i:Attached.Icon="fa-copy" ToolTip.Tip="Copy (Ctrl-V)"></Button>
+                <Button i:Attached.Icon="fa-scissors" ToolTip.Tip="Cut (Ctrl-X)"></Button>
+                <Button i:Attached.Icon="fa-paste" ToolTip.Tip="Paste (Ctrl-V)"></Button>
+                <Button i:Attached.Icon="fa-trash-can" ToolTip.Tip="Delete"></Button>
+                <Button i:Attached.Icon="fa-border-all" ToolTip.Tip="Select All (Ctrl-A)"></Button>
+                <Label>|</Label>
+                <Button i:Attached.Icon="fa-arrow-rotate-left" ToolTip.Tip="Undo (Ctrl-Z)"></Button>
+                <Button i:Attached.Icon="fa-arrow-rotate-right" ToolTip.Tip="Redo (Ctrl-Y)"></Button>
+                <Label>|</Label>
+                <Button i:Attached.Icon="fa-magnifying-glass" ToolTip.Tip="Find (Ctrl-F)"></Button>
+                <Button i:Attached.Icon="fa-right-left" ToolTip.Tip="Replace (Ctrl-H)"></Button>
+                <Button i:Attached.Icon="fa-right-long" ToolTip.Tip="Goto (Ctrl-G)"></Button>
+                <Label>|</Label>
+                <Button i:Attached.Icon="fa-file-import" ToolTip.Tip="Import text from File"></Button>
+                <Label>| Regex:</Label>
+                <Button i:Attached.Icon="fa-stethoscope" ToolTip.Tip="Analyze"></Button>
+                <Button i:Attached.Icon="fa-equals" ToolTip.Tip="Match"></Button>
+                <Button i:Attached.Icon="fa-shuffle" ToolTip.Tip="Replace"></Button>
+                <Button i:Attached.Icon="fa-arrows-split-up-and-left" ToolTip.Tip="Split"></Button>
+            </StackPanel>
+        </Grid>
+
+		<GridSplitter Grid.Row="1" Grid.Column="1" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns" Background="DodgerBlue"></GridSplitter>
+		<!--<GridSplitter Grid.Row="1" Grid.Column="3" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns" Background="DodgerBlue"></GridSplitter>-->
+
+		<Grid Grid.Row="1" Grid.Column="0" RowDefinitions="Auto,*">
+			<Label FontWeight="Bold" HorizontalAlignment="Stretch" 
+				   HorizontalContentAlignment="Center"
+                   Background="{StaticResource TabItemHeaderBackgroundSelected}"
+                   Margin="4 0">Regex Analyzer</Label>
+			<TextBox Grid.Row="1" Margin="4" IsReadOnly="True"></TextBox>
+        </Grid>
+
+		<Grid Grid.Column="2" Grid.Row="1" ColumnDefinitions="*,4,*" RowDefinitions="2*,4,*">
+
+			<GridSplitter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ResizeBehavior="PreviousAndNext" ResizeDirection="Rows" Background="DodgerBlue"></GridSplitter>
+			<GridSplitter Grid.Row="2" Grid.Column="1" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns" Background="DodgerBlue"></GridSplitter>
+
+			<!--Regex editor-->
+			<TextBox x:Name="Editor" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                                     BorderThickness="0" BorderBrush="Transparent"
+                                     Text="{Binding Regex, Mode=TwoWay}"
+                                     CaretIndex="{Binding EditorCaretIndex, Mode=TwoWay}">
+                <TextBox.ContextMenu>
+				<ContextMenu>
+					<MenuItem Header="Quick Add" i:MenuItem.Icon="fa-plus">
+						<MenuItem Header="Character Shortcuts" i:MenuItem.Icon="fa-arrows-turn-right">
+							<MenuItem Header="Bell - \a" Command="{Binding AddTextCommand}" CommandParameter="\a"/>
+							<MenuItem Header="Backslash - \\" Command="{Binding AddTextCommand}" CommandParameter="\\"/>
+							<MenuItem Header="Tab - \t" Command="{Binding AddTextCommand}" CommandParameter="\t"/>
+							<MenuItem Header="Carriage Return - \r" Command="{Binding AddTextCommand}" CommandParameter="\r"/>
+							<MenuItem Header="Vertical Tab - \v" Command="{Binding AddTextCommand}" CommandParameter="\v"/>
+							<MenuItem Header="Form Feed - \f" Command="{Binding AddTextCommand}" CommandParameter="\f"/>
+							<MenuItem Header="Newline - \n" Command="{Binding AddTextCommand}" CommandParameter="\n"/>
+							<MenuItem Header="Escape - \e" Command="{Binding AddTextCommand}" CommandParameter="\e"/>
+							<MenuItem Header="ASCII - \x&lt;NN&gt;" Command="{Binding AddTextCommand}" CommandParameter="\x&lt;NN&gt;"/>
+							<MenuItem Header="CTRL char - \Cx&lt;letter&gt;" Command="{Binding AddTextCommand}" CommandParameter="\Cx&lt;letter&gt;"/>
+							<MenuItem Header="UNICODE char - \U&lt;XXXX&gt;" Command="{Binding AddTextCommand}" CommandParameter="\U&lt;XXXX&gt;"/>
+						</MenuItem>
+						<MenuItem Header="Character Classes" i:MenuItem.Icon="fa-spell-check">
+							<MenuItem Header="Group - [&lt;chars&gt;]" Command="{Binding AddTextCommand}" CommandParameter="[&lt;chars&gt;]"/>
+							<MenuItem Header="Negated Group - [^&lt;chars&gt;]" Command="{Binding AddTextCommand}" CommandParameter="[^&lt;chars&gt;]"/>
+							<MenuItem Header="-"/>
+							<MenuItem Header="Any - ." Command="{Binding AddTextCommand}" CommandParameter="."/>
+							<MenuItem Header="Word [a-zA-Z_0-9] - \w" Command="{Binding AddTextCommand}" CommandParameter="\w"/>
+							<MenuItem Header="Non Word - \W" Command="{Binding AddTextCommand}" CommandParameter="\W"/>
+							<MenuItem Header="Whitespace [\f, ,\n,\r,\t,\v] - \s" Command="{Binding AddTextCommand}" CommandParameter="\s"/>
+							<MenuItem Header="Non whitespace - \S" Command="{Binding AddTextCommand}" CommandParameter="\S"/>
+							<MenuItem Header="Decimal Digit - \d" Command="{Binding AddTextCommand}" CommandParameter="\d"/>
+							<MenuItem Header="Non Decimal Digit - \D" Command="{Binding AddTextCommand}" CommandParameter="\D"/>
+						</MenuItem>
+						<MenuItem Header="Quantifiers" i:MenuItem.Icon="fa-arrow-up-1-9">
+							<MenuItem Header="Zero or more - *" Command="{Binding AddTextCommand}" CommandParameter="*"/>
+							<MenuItem Header="One or more - +" Command="{Binding AddTextCommand}" CommandParameter="+"/>
+							<MenuItem Header="Zero or one - ?" Command="{Binding AddTextCommand}" CommandParameter="?"/>
+							<MenuItem Header="From N to M - &#123;&lt;N&gt;,&lt;M&gt;&#125;" Command="{Binding AddTextCommand}" CommandParameter=" &#123;&lt;N&gt;,&lt;M&gt;&#125;"/>
+							<MenuItem Header="At least N - &#123;&lt;n&gt;,&#125;" Command="{Binding AddTextCommand}" CommandParameter=" &#123;&lt;n&gt;,&#125;"/>
+							<MenuItem Header="Exactly N - &#123;&lt;n&gt;&#125;" Command="{Binding AddTextCommand}" CommandParameter=" &#123;&lt;n&gt;&#125;"/>
+							<MenuItem Header="-"/>
+							<MenuItem Header="Zero or more (non greedy) - *?" Command="{Binding AddTextCommand}" CommandParameter="*?"/>
+							<MenuItem Header="One or more (non greedy) - +?" Command="{Binding AddTextCommand}" CommandParameter="+?"/>
+							<MenuItem Header="Zero or one(non greedy) - ??" Command="{Binding AddTextCommand}" CommandParameter="??"/>
+							<MenuItem Header="From N to M (non greedy) - &#123;&lt;N&gt;,&lt;M&gt;&#125;?" Command="{Binding AddTextCommand}" CommandParameter=" &#123;&lt;N&gt;,&lt;M&gt;&#125;?"/>
+							<MenuItem Header="At least N (non greedy) - &#123;&lt;n&gt;,&#125;?" Command="{Binding AddTextCommand}" CommandParameter=" &#123;&lt;n&gt;,&#125;?"/>
+							<MenuItem Header="Exactly N (non greedy) - &#123;&lt;n&gt;&#125;?" Command="{Binding AddTextCommand}" CommandParameter=" &#123;&lt;n&gt;&#125;?"/>
+						</MenuItem>
+						<MenuItem Header="Anchors" i:MenuItem.Icon="fa-anchor">
+							<MenuItem Header="Beginning of string - ^" Command="{Binding AddTextCommand}" CommandParameter="^"/>
+							<MenuItem Header="Beginning, multiline - \A" Command="{Binding AddTextCommand}" CommandParameter="\A"/>
+							<MenuItem Header="End of string - $" Command="{Binding AddTextCommand}" CommandParameter="$"/>
+							<MenuItem Header="End, multiline - \Z" Command="{Binding AddTextCommand}" CommandParameter="\Z"/>
+							<MenuItem Header="End, multiline - \z" Command="{Binding AddTextCommand}" CommandParameter="\z"/>
+							<MenuItem Header="Word boundary - \b" Command="{Binding AddTextCommand}" CommandParameter="\b"/>
+							<MenuItem Header="Non Word boundary - \B" Command="{Binding AddTextCommand}" CommandParameter="\B"/>
+						</MenuItem>
+						<MenuItem Header="Grouping" i:MenuItem.Icon="fa-object-group">
+							<MenuItem Header="Header Capture - (?&lt;&lt;Header&gt;&gt;x)" Command="{Binding AddTextCommand}" CommandParameter="(?&lt;&lt;Header&gt;&gt;x)"/>
+							<MenuItem Header="Capture - (&lt;expression&gt;)" Command="{Binding AddTextCommand}" CommandParameter="(&lt;expression&gt;)"/>
+							<MenuItem Header="Non Capture - (?:&lt;exp&gt;)" Command="{Binding AddTextCommand}" CommandParameter="(?:&lt;exp&gt;)"/>
+							<MenuItem Header="Alternation - (&lt;x&gt;|&lt;y&gt;)" Command="{Binding AddTextCommand}" CommandParameter="(&lt;x&gt;|&lt;y&gt;)"/>
+						</MenuItem>
+						<MenuItem Header="Zero-Width" i:MenuItem.Icon="fa-text-width">
+							<MenuItem Header="Positive Lookahead - (?=&lt;x&gt;)" Command="{Binding AddTextCommand}" CommandParameter="(?=&lt;x&gt;)"/>
+							<MenuItem Header="Negative Lookahead - (?!&lt;x&gt;)" Command="{Binding AddTextCommand}" CommandParameter="(?!&lt;x&gt;)"/>
+							<MenuItem Header="Positive Lookbehind - (?&lt;=&lt;x&gt;)" Command="{Binding AddTextCommand}" CommandParameter="(?&lt;=&lt;x&gt;)"/>
+							<MenuItem Header="Negative Lookbehind - (?&lt;!&lt;x&gt;)" Command="{Binding AddTextCommand}" CommandParameter="(?&lt;!&lt;x&gt;)"/>
+						</MenuItem>
+						<MenuItem Header="Conditionals" i:MenuItem.Icon="fa-question">
+							<MenuItem Header="Expression - (?(&lt;exp&gt;)yes|no)" Command="{Binding AddTextCommand}" CommandParameter="(?(&lt;exp&gt;)yes|no)"/>
+							<MenuItem Header="Header - (?(&lt;Header&gt;)yes|no)" Command="{Binding AddTextCommand}" CommandParameter="(?(&lt;Header&gt;)yes|no)"/>
+						</MenuItem>
+						<MenuItem Header="Options" i:MenuItem.Icon="fa-square-check">
+							<MenuItem Header="Ignore Case - (?i:)" Command="{Binding AddTextCommand}" CommandParameter="(?i:)"/>
+							<MenuItem Header="Ignore Case Off - (?-i:)" Command="{Binding AddTextCommand}" CommandParameter="(?-i:)"/>
+							<MenuItem Header="Multiline - (?m:)" Command="{Binding AddTextCommand}" CommandParameter="(?m:)"/>
+							<MenuItem Header="Multiline Off - (?-m:)" Command="{Binding AddTextCommand}" CommandParameter="(?-m:)"/>
+							<MenuItem Header="Explicit Capture - (?n:)" Command="{Binding AddTextCommand}" CommandParameter="(?n:)"/>
+							<MenuItem Header="Explicit Capture Off - (?-n:)" Command="{Binding AddTextCommand}" CommandParameter="(?-n:)"/>
+							<MenuItem Header="Single Line - (?s:)" Command="{Binding AddTextCommand}" CommandParameter="(?s:)"/>
+							<MenuItem Header="Single Line Off - (?-s:)" Command="{Binding AddTextCommand}" CommandParameter="(?-s:)"/>
+							<MenuItem Header="Ignore Whitespace - (?x:)" Command="{Binding AddTextCommand}" CommandParameter="(?x:)"/>
+							<MenuItem Header="Ignore Whitespace Off - (?-x:)" Command="{Binding AddTextCommand}" CommandParameter="(?-x:)"/>
+						</MenuItem>
+					</MenuItem>
+                    <MenuItem Header="Edit" i:MenuItem.Icon="fa-pen">
+                        <MenuItem Header="Copy (Ctrl+C)" i:MenuItem.Icon="fa-copy"></MenuItem>
+                        <MenuItem Header="Cut (Ctrl+X)" i:MenuItem.Icon="fa-scissors"></MenuItem>
+                        <MenuItem Header="Paste (Ctrl+V)" i:MenuItem.Icon="fa-paste"></MenuItem>
+                        <MenuItem Header="Delete (Del)" i:MenuItem.Icon="fa-trash-can"></MenuItem>
+                        <MenuItem Header="Select All (Ctrl+A)" i:MenuItem.Icon="fa-border-all"></MenuItem>
+                        <MenuItem Header="Escape selection (F9)" HotKey="F9"></MenuItem>
+                        <MenuItem Header="-"></MenuItem>
+                        <MenuItem Header="Undo (Ctrl+Z)" i:MenuItem.Icon="fa-arrow-rotate-left"></MenuItem>
+                        <MenuItem Header="Redo (Ctrl+Y)" i:MenuItem.Icon="fa-arrow-rotate-right"></MenuItem>
+                        <MenuItem Header="-"></MenuItem>
+                        <MenuItem Header="Find (Ctrl+F)" HotKey="Ctrl+F" i:MenuItem.Icon="fa-magnifying-glass"></MenuItem>
+                        <MenuItem Header="Replace (Ctrl+H)" HotKey="Ctrl+H" i:MenuItem.Icon="fa-right-left"></MenuItem>
+                    </MenuItem>
+                </ContextMenu>
+                </TextBox.ContextMenu>
+			</TextBox>
+
+			<TabControl Grid.Row="2" Grid.Column="0" Margin="0 -4 0 0">
+				<TabItem Header="Match">
+                    <TextBox Margin="4 0 4 4" IsReadOnly="True"></TextBox>
+                </TabItem>
+				<TabItem Header="Replace">
+                    <TextBox Margin="4 0 4 4" IsReadOnly="True"></TextBox>
+                </TabItem>
+				<TabItem Header="Splits">
+                    <DataGrid Margin="4 0 4 4"  
+                              IsReadOnly="True" >
+						<DataGrid.Columns>
+							<DataGridTextColumn Header="Index" Width="50"></DataGridTextColumn>
+							<DataGridTextColumn Header="Text" Width="*"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+            </TabControl>
+
+            <TabControl Grid.Row="2" Grid.Column="2" Margin="0 -4 0 0">
+                <TabItem Header="Input">
+
+                </TabItem>
+                <TabItem Header="Replace with">
+
+                </TabItem>
+            </TabControl>
+
+		</Grid>
+
+	</Grid>
+
+</UserControl>

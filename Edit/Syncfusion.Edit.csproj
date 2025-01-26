@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>7.10.3077</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{40667E14-9A77-4C4D-9733-CCA453A0DA26}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon />
+    <AssemblyKeyContainerName />
+    <AssemblyName>Syncfusion.EditCustom</AssemblyName>
+    <AssemblyOriginatorKeyFile />
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Syncfusion.Windows.Forms.EditCustom</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject />
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>0.0</OldToolsVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile />
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile />
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn />
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>..\bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile />
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile />
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn />
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-XML|AnyCPU' ">
+    <OutputPath>..\bin\DebugXML\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile />
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile />
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn />
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>3</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-XML|AnyCPU' ">
+    <OutputPath>..\bin\ReleaseXML\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile />
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile />
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn />
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <Reference Include="_FusionLic">
+      <Name>_FusionLic</Name>
+      <HintPath>..\..\..\..\Program Files\Microsoft Visual Studio .NET\Common7\IDE\PrivateAssemblies\_FusionLic.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ContextChoice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ContextPrompt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditActionStack.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditArea.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EditButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EditColorGroup.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditColorGroupList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditColorInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditColorInfoList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EditData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditEventHandlers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditGroupInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditHScrollBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EditIndicator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditIndicatorList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditKeywordInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditLine.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditLineList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditLocation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditLocationRange.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditMultiLineBlock.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditMultiLineBlockList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditOutlining.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditSelection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditTagInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditUndoRedo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EditVScrollBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FindReplaceDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GoToDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OptionsDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OptionsFontColor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OptionsGeneral.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OptionsMiscellaneous.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Content Include="licenses.licx" />
+    <EmbeddedResource Include="ContextChoice.resx">
+      <DependentUpon>ContextChoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ContextPrompt.resx">
+      <DependentUpon>ContextPrompt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditArea.resx">
+      <DependentUpon>EditArea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditButton.resx">
+      <DependentUpon>EditButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditControl.resx">
+      <DependentUpon>EditControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditHScrollBar.resx">
+      <DependentUpon>EditHScrollBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditView.resx">
+      <DependentUpon>EditView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditVScrollBar.resx">
+      <DependentUpon>EditVScrollBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindReplaceDlg.resx">
+      <DependentUpon>FindReplaceDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GoToDlg.resx">
+      <DependentUpon>GoToDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OptionsDlg.resx">
+      <DependentUpon>OptionsDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OptionsFontColor.resx">
+      <DependentUpon>OptionsFontColor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OptionsGeneral.resx">
+      <DependentUpon>OptionsGeneral.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OptionsMiscellaneous.resx">
+      <DependentUpon>OptionsMiscellaneous.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CPP.INI" />
+    <EmbeddedResource Include="Resources\CSHARP.INI" />
+    <EmbeddedResource Include="Resources\DRAGMOVE.CUR" />
+    <EmbeddedResource Include="Resources\EDIT.BMP" />
+    <EmbeddedResource Include="Resources\IDL.INI" />
+    <EmbeddedResource Include="Resources\ISEARCH.CUR" />
+    <EmbeddedResource Include="Resources\JAVA.INI" />
+    <EmbeddedResource Include="Resources\JSCRIPT.INI" />
+    <EmbeddedResource Include="Resources\MFC.INI" />
+    <EmbeddedResource Include="Resources\NECURSOR.CUR" />
+    <EmbeddedResource Include="Resources\NSIMAGE.BMP" />
+    <EmbeddedResource Include="Resources\PLSQL.INI" />
+    <EmbeddedResource Include="Resources\SETTINGS.INI" />
+    <EmbeddedResource Include="Resources\STRING_EN" />
+    <EmbeddedResource Include="Resources\VB.INI" />
+    <EmbeddedResource Include="Resources\VBSCRIPT.INI" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent />
+    <PostBuildEvent />
+  </PropertyGroup>
+</Project>
