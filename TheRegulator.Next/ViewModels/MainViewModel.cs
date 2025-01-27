@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Avalonia.Controls;
@@ -20,6 +21,7 @@ public class MainViewModel : ViewModelBase
     private TextBox? _editor;
     private string? _inputText;
     private string? _replaceText;
+    private bool _showListResult;
 
     public TextBox? Editor
     {
@@ -43,23 +45,29 @@ public class MainViewModel : ViewModelBase
         set => SetProperty(ref _replaceText, value);
     }
 
-    public string ReplaceResultText { get; set; } = string.Empty;
+    public bool ShowListResult
+    {
+        get => _showListResult;
+        private set => SetProperty(ref _showListResult, value);
+    }
 
-    public ObservableCollection<MatchViewModel> Matches { get; set; } = [];
+    public string TextResult { get; set; } = string.Empty;
+    public ObservableCollection<MatchViewModel> ListResult { get; } = [];
 
-    public ICommand SwitchThemeCommand { get; } = new RelayCommand(SwitchTheme);
-    public ICommand AddTextCommand { get; set; }
+    public ICommand SwitchThemeCommand { get; private set; } = new RelayCommand(SwitchTheme);
+    public ICommand AddTextCommand { get; private set; }
 
-    public RelayCommand CutCommand { get; set; }
-    public RelayCommand CopyCommand { get; set; }
-    public RelayCommand PasteCommand { get; set; }
-    public RelayCommand SelectAllCommand { get; set; }
-    public RelayCommand DeleteCommand { get; set; }
-    public RelayCommand UndoCommand { get; set; }
-    public RelayCommand RedoCommand { get; set; }
+    public RelayCommand CutCommand { get; private set; }
+    public RelayCommand CopyCommand { get; private set; }
+    public RelayCommand PasteCommand { get; private set; }
+    public RelayCommand SelectAllCommand { get; private set; }
+    public RelayCommand DeleteCommand { get; private set; }
+    public RelayCommand UndoCommand { get; private set; }
+    public RelayCommand RedoCommand { get; private set; }
     
-    public RelayCommand MatchCommand { get; set; }
-    public RelayCommand ReplaceCommand { get; set; }
+    public RelayCommand MatchCommand { get; private set; }
+    public RelayCommand ReplaceCommand { get; private set; }
+    public RelayCommand SplitCommand { get; private set; }
 
     public void SetDialogHosts(ISukiDialogManager dialogManager, ISukiToastManager toastManager)
     {
@@ -87,6 +95,7 @@ public class MainViewModel : ViewModelBase
 
         MatchCommand = new RelayCommand(RunMatch);
         ReplaceCommand = new RelayCommand(RunReplace);
+        SplitCommand = new RelayCommand(RunSplit);
 
         Editor.PropertyChanged += (sender, args) =>
         {
@@ -143,13 +152,14 @@ public class MainViewModel : ViewModelBase
 
         try
         {
-            Matches.Clear();
+            ListResult.Clear();
 
             var regex = new Regex(Editor.Text);
             foreach (var capture in regex.Matches(InputText).SelectMany(x => x.Captures))
             {
-                Matches.Add(new MatchViewModel(capture.Value, capture.Index));
+                ListResult.Add(new MatchViewModel(capture.Value, capture.Index));
             }
+            ShowListResult = true;
         }
         catch (Exception e)
         {
@@ -174,8 +184,43 @@ public class MainViewModel : ViewModelBase
         try
         {
             var regex = new Regex(Editor.Text);
-            ReplaceResultText = regex.Replace(InputText, _replaceText ?? string.Empty);
-            OnPropertyChanged(nameof(ReplaceResultText));
+            TextResult = regex.Replace(InputText, _replaceText ?? string.Empty);
+            OnPropertyChanged(nameof(TextResult));
+            ShowListResult = false;
+        }
+        catch (Exception e)
+        {
+            ShowToast("Error occurred", e.Message, NotificationType.Error);
+        }
+    }
+
+    private void RunSplit()
+    {
+        if (string.IsNullOrWhiteSpace(Editor.Text))
+        {
+            ShowToast("Invalid input", "No regular expression input found", NotificationType.Error);
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(InputText))
+        {
+            ShowToast("Invalid input", "No test input found", NotificationType.Error);
+            return;
+        }
+
+        try
+        {
+            ListResult.Clear();
+
+            var regex = new Regex(Editor.Text);
+            var sb = new StringBuilder();
+            foreach (var split in regex.Split(InputText))
+            {
+                sb.AppendLine(split);
+            }
+            TextResult = sb.ToString();
+            OnPropertyChanged(nameof(TextResult));
+            ShowListResult = false;
         }
         catch (Exception e)
         {

@@ -43,17 +43,17 @@
                 <Label VerticalAlignment="Center">| Regex:</Label>
                 <Button i:Attached.Icon="fa-equals" ToolTip.Tip="Match" Command="{Binding MatchCommand}" Padding="8"></Button>
                 <Button i:Attached.Icon="fa-shuffle" ToolTip.Tip="Replace" Command="{Binding ReplaceCommand}" Padding="8"></Button>
-                <Button i:Attached.Icon="fa-arrows-split-up-and-left" ToolTip.Tip="Split" Padding="8"></Button>
+                <Button i:Attached.Icon="fa-arrows-split-up-and-left" ToolTip.Tip="Split" Command="{Binding SplitCommand}" Padding="8"></Button>
                 <Button i:Attached.Icon="fa-stethoscope" ToolTip.Tip="Analyze" Padding="8"></Button>
             </StackPanel>
         </Grid>
 
 		<GridSplitter Grid.Row="1" Grid.Column="1" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns" ></GridSplitter>
 
-		<Grid Grid.Column="0" Grid.Row="1" ColumnDefinitions="*,4,*" RowDefinitions="Auto,2*,4,*">
+		<Grid Grid.Column="0" Grid.Row="1" ColumnDefinitions="*,4,*" RowDefinitions="Auto,2*,Auto,*,4,Auto,2*">
 
-			<GridSplitter Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ResizeBehavior="PreviousAndNext" ResizeDirection="Rows" ></GridSplitter>
-			<GridSplitter Grid.Row="3" Grid.Column="1" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns" ></GridSplitter>
+			<GridSplitter Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" ResizeBehavior="PreviousAndNext" ResizeDirection="Rows" ></GridSplitter>
+			<GridSplitter Grid.Row="5" Grid.RowSpan="2" Grid.Column="1" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns" ></GridSplitter>
 
 			<!--Regex editor-->
             <Label FontWeight="Bold" HorizontalAlignment="Stretch" 
@@ -162,43 +162,39 @@
                 </ContextMenu>
                 </TextBox.ContextMenu>
 			</TextBox>
+            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                   FontWeight="Bold" HorizontalAlignment="Stretch" 
+                   HorizontalContentAlignment="Left"
+                   Margin="8 0">Replace with</Label>
+            <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
+                     Text="{Binding ReplaceText}" Margin="4 0 4 4" AcceptsReturn="True"
+                     VerticalContentAlignment="Top"></TextBox>
+			
+                    
+            <Label Grid.Row="5" Grid.Column="0" 
+                   FontWeight="Bold" HorizontalAlignment="Stretch" 
+                   HorizontalContentAlignment="Left"
+                   Margin="8 0">Input</Label>
+            <TextBox Grid.Row="6" Grid.Column="0" Text="{Binding InputText}" Margin="4 0 4 4" AcceptsReturn="True"
+                     VerticalContentAlignment="Top"></TextBox>
 
-			<TabControl Grid.Row="3" Grid.Column="0" Margin="0 -4 0 0">
-				<TabItem Header="Match">
-                    <ListBox Margin="4 0 4 4" ItemsSource="{Binding Matches, Mode=OneWay}" 
-                             SelectionMode="Single">
-						<ListBox.ItemTemplate>
-							<DataTemplate>
-								<TextBlock Text="{Binding Text, Mode=OneWay, StringFormat='[{0}]'}"></TextBlock>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </TabItem>
-				<TabItem Header="Replace">
-                    <TextBox Margin="4 0 4 4" IsReadOnly="True" Text="{Binding ReplaceResultText, Mode=OneWay}"
-                             VerticalContentAlignment="Top"></TextBox>
-                </TabItem>
-				<TabItem Header="Splits">
-                    <DataGrid Margin="4 0 4 4"  
-                              IsReadOnly="True" >
-						<DataGrid.Columns>
-							<DataGridTextColumn Header="Index" Width="50"></DataGridTextColumn>
-							<DataGridTextColumn Header="Text" Width="*"></DataGridTextColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </TabItem>
-            </TabControl>
+            <Label Grid.Row="5" Grid.Column="2" 
+                   FontWeight="Bold" HorizontalAlignment="Stretch" 
+                   HorizontalContentAlignment="Left"
+                   Margin="8 0">Result</Label>
 
-            <TabControl Grid.Row="3" Grid.Column="2" Margin="0 -4 0 0">
-                <TabItem Header="Input">
-                    <TextBox Text="{Binding InputText}" Margin="4 0 4 4" AcceptsReturn="True"
-                             VerticalContentAlignment="Top"></TextBox>
-                </TabItem>
-                <TabItem Header="Replace with">
-                    <TextBox Text="{Binding ReplaceText}" Margin="4 0 4 4" AcceptsReturn="True"
-                             VerticalContentAlignment="Top"></TextBox>
-                </TabItem>
-            </TabControl>
+            <TextBox Grid.Row="6" Grid.Column="2" IsReadOnly="True" Text="{Binding TextResult, Mode=OneWay}"
+                     VerticalContentAlignment="Top" IsVisible="{Binding ShowListResult, Converter={x:Static BoolConverters.Not}, Mode=OneWay}"></TextBox>
+
+            <ListBox Grid.Row="6" Grid.Column="2"  ItemsSource="{Binding ListResult, Mode=OneWay}"
+                     IsVisible="{Binding ShowListResult, Mode=OneWay}" 
+                     SelectionMode="Single">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Text, Mode=OneWay, StringFormat='[{0}]'}"></TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
 
 		</Grid>
 
