@@ -44,7 +44,7 @@
                 <Button i:Attached.Icon="fa-equals" ToolTip.Tip="Match" Command="{Binding MatchCommand}" Padding="8"></Button>
                 <Button i:Attached.Icon="fa-shuffle" ToolTip.Tip="Replace" Command="{Binding ReplaceCommand}" Padding="8"></Button>
                 <Button i:Attached.Icon="fa-arrows-split-up-and-left" ToolTip.Tip="Split" Command="{Binding SplitCommand}" Padding="8"></Button>
-                <Button i:Attached.Icon="fa-stethoscope" ToolTip.Tip="Analyze" Padding="8"></Button>
+                <Button i:Attached.Icon="fa-stethoscope" ToolTip.Tip="Analyze" Command="{Binding AnalyzeCommand}" Padding="8"></Button>
             </StackPanel>
         </Grid>
 
@@ -206,7 +206,10 @@
                    HorizontalContentAlignment="Center"
                    Background="{StaticResource TabItemHeaderBackgroundSelected}"
                    Margin="8 0 ">Regex Analyzer</Label>
-            <TextBox Grid.Row="1" Margin="4 0 4 4" IsReadOnly="True" VerticalContentAlignment="Top"></TextBox>
+            <TextBox Grid.Row="1" Margin="4 0 4 4" 
+                     IsReadOnly="True" VerticalContentAlignment="Top"
+                     FontFamily="{StaticResource UbuntuFont}" FontSize="18"
+                     Text="{Binding AnalyzeResult, Mode=OneWay}"></TextBox>
         </Grid>
 
 	</Grid>

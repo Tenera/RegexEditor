@@ -1,5 +1,0 @@
-<?xml version="1.0" standalone="yes"?>
-<Snippets>
-  <add text="(?&lt;GroupName&gt;)" />
-  <add text="?&lt;Anotherone&gt;%rt ().*" />
-</Snippets>

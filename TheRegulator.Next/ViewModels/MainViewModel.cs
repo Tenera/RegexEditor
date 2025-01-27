@@ -11,6 +11,7 @@ using CommunityToolkit.Mvvm.Input;
 using SukiUI;
 using SukiUI.Dialogs;
 using SukiUI.Toasts;
+using TheRegulator.Next.RegexParsing;
 
 namespace TheRegulator.Next.ViewModels;
 
@@ -22,6 +23,7 @@ public class MainViewModel : ViewModelBase
     private string? _inputText;
     private string? _replaceText;
     private bool _showListResult;
+    private string _analyzeResult = string.Empty;
 
     public TextBox? Editor
     {
@@ -51,6 +53,12 @@ public class MainViewModel : ViewModelBase
         private set => SetProperty(ref _showListResult, value);
     }
 
+    public string AnalyzeResult
+    {
+        get => _analyzeResult;
+        set => SetProperty(ref _analyzeResult, value);
+    }
+
     public string TextResult { get; set; } = string.Empty;
     public ObservableCollection<MatchViewModel> ListResult { get; } = [];
 
@@ -68,6 +76,7 @@ public class MainViewModel : ViewModelBase
     public RelayCommand MatchCommand { get; private set; }
     public RelayCommand ReplaceCommand { get; private set; }
     public RelayCommand SplitCommand { get; private set; }
+    public RelayCommand AnalyzeCommand { get; private set; }
 
     public void SetDialogHosts(ISukiDialogManager dialogManager, ISukiToastManager toastManager)
     {
@@ -96,6 +105,7 @@ public class MainViewModel : ViewModelBase
         MatchCommand = new RelayCommand(RunMatch);
         ReplaceCommand = new RelayCommand(RunReplace);
         SplitCommand = new RelayCommand(RunSplit);
+        AnalyzeCommand = new RelayCommand(Analyze);
 
         Editor.PropertyChanged += (sender, args) =>
         {
@@ -128,6 +138,8 @@ public class MainViewModel : ViewModelBase
         Editor!.Text = string.IsNullOrWhiteSpace(Editor.Text) 
             ? toAdd.TrimStart(' ')
             : Editor.Text.Insert(Editor.CaretIndex, toAdd.TrimStart(' '));
+
+        Editor.CaretIndex += toAdd.Length;
     }
 
     private void DeleteText()
@@ -228,6 +240,25 @@ public class MainViewModel : ViewModelBase
         }
     }
 
+    private void Analyze()
+    {
+        if (string.IsNullOrWhiteSpace(Editor.Text))
+        {
+            ShowToast("Invalid input", "No regular expression input found", NotificationType.Error);
+            return;
+        }
+
+        try
+        {
+            AnalyzeResult = RegexExpression.Interpret(Editor.Text);
+        }
+        catch (Exception e)
+        {
+            ShowToast("Error occurred", e.Message, NotificationType.Error);
+            AnalyzeResult = string.Empty;
+        }
+    }
+    
     private void ShowToast(string title, string content, NotificationType type)
     {
         _toastManager.CreateToast()
