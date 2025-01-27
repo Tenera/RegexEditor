@@ -23,7 +23,9 @@
                     <Setter Property="Padding" Value="8"></Setter>
                 </Style>
             </Grid.Resources>
-            <StackPanel  Orientation="Horizontal" Spacing="4" Margin="4" Background="Transparent" >
+            <StackPanel Orientation="Horizontal" Spacing="4" Margin="4" Background="Transparent" >
+                <Button i:Attached.Icon="fa-circle-half-stroke" ToolTip.Tip="Copy (Ctrl-V)" Command="{Binding SwitchThemeCommand}" Padding="8"></Button>
+                <Label VerticalAlignment="Center">|</Label>
                 <Button i:Attached.Icon="fa-copy" ToolTip.Tip="Copy (Ctrl-V)" Command="{Binding CopyCommand}" Padding="8"></Button>
                 <Button i:Attached.Icon="fa-scissors" ToolTip.Tip="Cut (Ctrl-X)" Command="{Binding CutCommand}" Padding="8"></Button>
                 <Button i:Attached.Icon="fa-paste" ToolTip.Tip="Paste (Ctrl-V)" Command="{Binding PasteCommand}" Padding="8"></Button>
@@ -173,7 +175,8 @@
                     </ListBox>
                 </TabItem>
 				<TabItem Header="Replace">
-                    <TextBox Margin="4 0 4 4" IsReadOnly="True" Text="{Binding ReplaceResultText, Mode=OneWay}"></TextBox>
+                    <TextBox Margin="4 0 4 4" IsReadOnly="True" Text="{Binding ReplaceResultText, Mode=OneWay}"
+                             VerticalContentAlignment="Top"></TextBox>
                 </TabItem>
 				<TabItem Header="Splits">
                     <DataGrid Margin="4 0 4 4"  

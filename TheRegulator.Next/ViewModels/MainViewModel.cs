@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using CommunityToolkit.Mvvm.Input;
+using SukiUI;
 using SukiUI.Dialogs;
 using SukiUI.Toasts;
 
@@ -45,6 +47,7 @@ public class MainViewModel : ViewModelBase
 
     public ObservableCollection<MatchViewModel> Matches { get; set; } = [];
 
+    public ICommand SwitchThemeCommand { get; } = new RelayCommand(SwitchTheme);
     public ICommand AddTextCommand { get; set; }
 
     public RelayCommand CutCommand { get; set; }
@@ -62,6 +65,11 @@ public class MainViewModel : ViewModelBase
     {
         _dialogManager = dialogManager;
         _toastManager = toastManager;
+    }
+
+    private static void SwitchTheme()
+    {
+        SukiTheme.GetInstance().SwitchBaseTheme();
     }
 
     private void SetupCommands()
