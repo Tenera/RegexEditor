@@ -63,7 +63,8 @@
                                      TextWrapping="Wrap" AcceptsReturn="True" Margin="4 0 4 4"
 									 BorderThickness="0" BorderBrush="Transparent"
                                      ClearSelectionOnLostFocus="False"
-                                     VerticalContentAlignment="Top">
+                                     VerticalContentAlignment="Top"
+                                     FontFamily="{StaticResource UbuntuFont}" FontSize="18">
                 <TextBox.ContextMenu>
 				<ContextMenu>
 					<MenuItem Header="Quick Add" i:MenuItem.Icon="fa-plus">
@@ -176,7 +177,7 @@
                    HorizontalContentAlignment="Left"
                    Margin="8 0">Input</Label>
             <TextBox Grid.Row="6" Grid.Column="0" Text="{Binding InputText}" Margin="4 0 4 4" AcceptsReturn="True"
-                     VerticalContentAlignment="Top"></TextBox>
+                     VerticalContentAlignment="Top" FontFamily="{StaticResource UbuntuFont}" FontSize="18"></TextBox>
 
             <Label Grid.Row="5" Grid.Column="2" 
                    FontWeight="Bold" HorizontalAlignment="Stretch" 
@@ -184,7 +185,8 @@
                    Margin="8 0">Result</Label>
 
             <TextBox Grid.Row="6" Grid.Column="2" IsReadOnly="True" Text="{Binding TextResult, Mode=OneWay}"
-                     VerticalContentAlignment="Top" IsVisible="{Binding ShowListResult, Converter={x:Static BoolConverters.Not}, Mode=OneWay}"></TextBox>
+                     VerticalContentAlignment="Top" IsVisible="{Binding ShowListResult, Converter={x:Static BoolConverters.Not}, Mode=OneWay}"
+                     FontFamily="{StaticResource UbuntuFont}" FontSize="18"></TextBox>
 
             <ListBox Grid.Row="6" Grid.Column="2"  ItemsSource="{Binding ListResult, Mode=OneWay}"
                      IsVisible="{Binding ShowListResult, Mode=OneWay}" 

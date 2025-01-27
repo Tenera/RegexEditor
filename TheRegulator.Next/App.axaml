@@ -3,9 +3,14 @@
              x:Class="TheRegulator.Next.App"
              xmlns:sukiUi="clr-namespace:SukiUI;assembly=SukiUI"
              RequestedThemeVariant="Default">
-             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+	<!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
-    <Application.Styles>
-        <sukiUi:SukiTheme ThemeColor="Blue"  />
-    </Application.Styles>
+	<Application.Styles>
+		<sukiUi:SukiTheme ThemeColor="Blue"  />
+	</Application.Styles>
+
+	<Application.Resources>
+		<FontFamily x:Key="UbuntuFont">avares://TheRegulator.Next/Assets/Fonts#Ubuntu Mono</FontFamily>
+	</Application.Resources>
+
 </Application>
