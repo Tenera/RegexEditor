@@ -116,8 +116,8 @@ public class MainViewModel : ViewModelBase
         {
             Matches.Clear();
 
-            var r = new Regex(Editor.Text);
-            foreach (var capture in r.Matches(InputText).SelectMany(x => x.Captures))
+            var regex = new Regex(Editor.Text);
+            foreach (var capture in regex.Matches(InputText).SelectMany(x => x.Captures))
             {
                 Matches.Add(new MatchViewModel(capture.Value, capture.Index));
             }
@@ -134,10 +134,8 @@ public class MainViewModel : ViewModelBase
 
         try
         {
-            Matches.Clear();
-
-            var r = new Regex(Editor.Text);
-            ReplaceResultText = r.Replace(InputText, _replaceText ?? string.Empty);
+            var regex = new Regex(Editor.Text);
+            ReplaceResultText = regex.Replace(InputText, _replaceText ?? string.Empty);
             OnPropertyChanged(nameof(ReplaceResultText));
         }
         catch (Exception e)
