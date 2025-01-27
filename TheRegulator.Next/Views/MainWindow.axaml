@@ -1,12 +1,19 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:TheRegulator.Next.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:views="clr-namespace:TheRegulator.Next.Views"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="TheRegulator.Next.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="TheRegulator.Next">
-        <views:MainView />
-</Window>
+<sukiUi:SukiWindow xmlns="https://github.com/avaloniaui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:sukiUi="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:views="clr-namespace:TheRegulator.Next.Views"
+                   xmlns:viewModels="clr-namespace:TheRegulator.Next.ViewModels"
+                   mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+                   x:Class="TheRegulator.Next.Views.MainWindow"
+                   Icon="/Assets/avalonia-logo.ico"
+                   Title="TheRegulator.Next">
+
+    <sukiUi:SukiWindow.Hosts>
+        <sukiUi:SukiDialogHost Name="DialogHost" />
+        <sukiUi:SukiToastHost Name="ToastHost" />
+    </sukiUi:SukiWindow.Hosts>
+
+    <views:MainView />
+</sukiUi:SukiWindow>

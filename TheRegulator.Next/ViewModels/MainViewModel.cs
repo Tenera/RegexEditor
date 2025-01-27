@@ -4,12 +4,17 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Avalonia.Controls;
+using Avalonia.Controls.Notifications;
 using CommunityToolkit.Mvvm.Input;
+using SukiUI.Dialogs;
+using SukiUI.Toasts;
 
 namespace TheRegulator.Next.ViewModels;
 
 public class MainViewModel : ViewModelBase
 {
+    private ISukiDialogManager? _dialogManager;
+    private ISukiToastManager? _toastManager;
     private TextBox? _editor;
     private string? _inputText;
     private string? _replaceText;
@@ -52,6 +57,12 @@ public class MainViewModel : ViewModelBase
     
     public RelayCommand MatchCommand { get; set; }
     public RelayCommand ReplaceCommand { get; set; }
+
+    public void SetDialogHosts(ISukiDialogManager dialogManager, ISukiToastManager toastManager)
+    {
+        _dialogManager = dialogManager;
+        _toastManager = toastManager;
+    }
 
     private void SetupCommands()
     {
@@ -110,7 +121,17 @@ public class MainViewModel : ViewModelBase
 
     private void RunMatch()
     {
-        if (string.IsNullOrWhiteSpace(Editor.Text) || string.IsNullOrWhiteSpace(InputText)) return;
+        if (string.IsNullOrWhiteSpace(Editor.Text))
+        {
+            ShowToast("Invalid input", "No regular expression input found", NotificationType.Error);
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(InputText))
+        {
+            ShowToast("Invalid input", "No test input found", NotificationType.Error);
+            return;
+        }
 
         try
         {
@@ -124,13 +145,23 @@ public class MainViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            //SetErrorText(e.Message);
+            ShowToast("Error occurred", e.Message, NotificationType.Error);
         }
     }
     
     private void RunReplace()
     {
-        if (string.IsNullOrWhiteSpace(Editor.Text) || string.IsNullOrWhiteSpace(InputText)) return;
+        if (string.IsNullOrWhiteSpace(Editor.Text))
+        {
+            ShowToast("Invalid input", "No regular expression input found", NotificationType.Error);
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(InputText))
+        {
+            ShowToast("Invalid input", "No test input found", NotificationType.Error);
+            return;
+        }
 
         try
         {
@@ -140,7 +171,18 @@ public class MainViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            //SetErrorText(e.Message);
+            ShowToast("Error occurred", e.Message, NotificationType.Error);
         }
+    }
+
+    private void ShowToast(string title, string content, NotificationType type)
+    {
+        _toastManager.CreateToast()
+            .Dismiss().After(TimeSpan.FromSeconds(3))
+            .Dismiss().ByClicking()
+            .OfType(type)
+            .WithTitle(title)
+            .WithContent(content)
+            .Queue();
     }
 }

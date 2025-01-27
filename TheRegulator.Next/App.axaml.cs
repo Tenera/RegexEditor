@@ -1,7 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-
 using TheRegulator.Next.ViewModels;
 using TheRegulator.Next.Views;
 
@@ -18,10 +17,11 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow
-            {
-                DataContext = new MainViewModel()
-            };
+            var mainWindow = new MainWindow();
+            var vm = new MainViewModel();
+            vm.SetDialogHosts(mainWindow.DialogHost.Manager, mainWindow.ToastHost.Manager);
+            mainWindow.DataContext = vm;
+            desktop.MainWindow = mainWindow;
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
