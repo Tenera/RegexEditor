@@ -16,7 +16,7 @@ internal class RegexRef(RegexItem regexItem, int start, int end) : IComparable
         set => End = Start + value - 1;
     }
 
-    public int CompareTo(object other)
+    public int CompareTo(object? other)
     {
         if (other is not RegexRef regexRef) return 0;
 
