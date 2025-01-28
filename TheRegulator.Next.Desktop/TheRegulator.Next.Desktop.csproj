@@ -7,7 +7,11 @@
     <Nullable>enable</Nullable>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>avalonia-logo.ico</ApplicationIcon>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="avalonia-logo.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Avalonia.Desktop" Version="11.2.3" />
