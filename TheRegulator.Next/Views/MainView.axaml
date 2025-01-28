@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:TheRegulator.Next.ViewModels"
              xmlns:i="https://github.com/projektanker/icons.avalonia"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
              mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="600"
              x:Class="TheRegulator.Next.Views.MainView"
              x:DataType="vm:MainViewModel">
@@ -25,26 +26,36 @@
             </Grid.Resources>
             <StackPanel Orientation="Horizontal" Spacing="4" Margin="4" Background="Transparent" >
                 <Button i:Attached.Icon="fa-circle-half-stroke" ToolTip.Tip="Copy (Ctrl-V)" Command="{Binding SwitchThemeCommand}" Padding="8"></Button>
-                <Label VerticalAlignment="Center">|</Label>
+                <Label VerticalAlignment="Center" FontSize="16">|</Label>
                 <Button i:Attached.Icon="fa-copy" ToolTip.Tip="Copy (Ctrl-V)" Command="{Binding CopyCommand}" Padding="8"></Button>
                 <Button i:Attached.Icon="fa-scissors" ToolTip.Tip="Cut (Ctrl-X)" Command="{Binding CutCommand}" Padding="8"></Button>
                 <Button i:Attached.Icon="fa-paste" ToolTip.Tip="Paste (Ctrl-V)" Command="{Binding PasteCommand}" Padding="8"></Button>
                 <Button i:Attached.Icon="fa-trash-can" ToolTip.Tip="Delete" Command="{Binding DeleteCommand}" Padding="8"></Button>
                 <Button i:Attached.Icon="fa-border-all" ToolTip.Tip="Select All (Ctrl-A)" Command="{Binding SelectAllCommand}" Padding="8"></Button>
-                <Label VerticalAlignment="Center">|</Label>
+                <Label VerticalAlignment="Center" FontSize="16">|</Label>
                 <Button i:Attached.Icon="fa-arrow-rotate-left" ToolTip.Tip="Undo (Ctrl-Z)" Command="{Binding UndoCommand}" Padding="8"></Button>
                 <Button i:Attached.Icon="fa-arrow-rotate-right" ToolTip.Tip="Redo (Ctrl-Y)" Command="{Binding RedoCommand}" Padding="8"></Button>
-                <Label VerticalAlignment="Center">|</Label>
-                <Button i:Attached.Icon="fa-magnifying-glass" ToolTip.Tip="Find (Ctrl-F)" Padding="8"></Button>
+                 <!--<Label VerticalAlignment="Center" FontSize="16">|</Label>
+               <Button i:Attached.Icon="fa-magnifying-glass" ToolTip.Tip="Find (Ctrl-F)" Padding="8"></Button>
                 <Button i:Attached.Icon="fa-right-left" ToolTip.Tip="Replace (Ctrl-H)" Padding="8"></Button>
                 <Button i:Attached.Icon="fa-right-long" ToolTip.Tip="Goto (Ctrl-G)" Padding="8"></Button>
-                <Label VerticalAlignment="Center">|</Label>
-                <Button i:Attached.Icon="fa-file-import" ToolTip.Tip="Import text from File" Padding="8"></Button>
-                <Label VerticalAlignment="Center">| Regex:</Label>
+                <Label VerticalAlignment="Center" FontSize="16">|</Label>
+                <Button i:Attached.Icon="fa-file-import" ToolTip.Tip="Import text from File" Padding="8"></Button>-->
+                <Label VerticalAlignment="Center" FontSize="16">| Regex:</Label>
                 <Button i:Attached.Icon="fa-equals" ToolTip.Tip="Match" Command="{Binding MatchCommand}" Padding="8"></Button>
                 <Button i:Attached.Icon="fa-shuffle" ToolTip.Tip="Replace" Command="{Binding ReplaceCommand}" Padding="8"></Button>
                 <Button i:Attached.Icon="fa-arrows-split-up-and-left" ToolTip.Tip="Split" Command="{Binding SplitCommand}" Padding="8"></Button>
                 <Button i:Attached.Icon="fa-stethoscope" ToolTip.Tip="Analyze" Command="{Binding AnalyzeCommand}" Padding="8"></Button>
+                <Label VerticalAlignment="Center" FontSize="16">| Options:</Label>
+                <ToggleButton i:Attached.Icon="fa-font" ToolTip.Tip="Ignore case" Padding="8" IsChecked="{Binding IgnoreCase}"></ToggleButton>
+                <ToggleButton i:Attached.Icon="fa-bars" ToolTip.Tip="Multiline" Padding="8" IsChecked="{Binding MultiLine}"></ToggleButton>
+                <ToggleButton i:Attached.Icon="fa-ellipsis" ToolTip.Tip="Single line" Padding="8" IsChecked="{Binding SingleLine}"></ToggleButton>
+                <ToggleButton i:Attached.Icon="fa-eye-slash" ToolTip.Tip="Ignore whitespace" Padding="8" IsChecked="{Binding IgnoreWhitespace}"></ToggleButton>
+                <ToggleButton i:Attached.Icon="fa-left-long" ToolTip.Tip="Right to left" Padding="8" IsChecked="{Binding RightToLeft}"></ToggleButton>
+                <ToggleButton i:Attached.Icon="fa-vector-square" ToolTip.Tip="Explicit capture" Padding="8" IsChecked="{Binding ExplicitCapture}"></ToggleButton>
+                <ToggleButton i:Attached.Icon="fa-code" ToolTip.Tip="ECMA script" Padding="8" IsChecked="{Binding EcmaScript}"></ToggleButton>
+                <ToggleButton i:Attached.Icon="fa-globe" ToolTip.Tip="Culture invariant" Padding="8" IsChecked="{Binding CultureInvariant}"></ToggleButton>
+                <ToggleButton i:Attached.Icon="fa-backward" ToolTip.Tip="Backtracking" Padding="8" IsChecked="{Binding NonBacktracking, Converter={x:Static BoolConverters.Not}}"></ToggleButton>
             </StackPanel>
         </Grid>
 
@@ -163,41 +174,43 @@
                 </ContextMenu>
                 </TextBox.ContextMenu>
 			</TextBox>
-            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+
+            <!--Replace with-->
+			<Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
                    FontWeight="Bold" HorizontalAlignment="Stretch" 
                    HorizontalContentAlignment="Left"
                    Margin="8 0">Replace with</Label>
             <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
                      Text="{Binding ReplaceText}" Margin="4 0 4 4" AcceptsReturn="True"
                      VerticalContentAlignment="Top"></TextBox>
-			
-                    
-            <Label Grid.Row="5" Grid.Column="0" 
+
+            <!--Input-->
+			<Label Grid.Row="5" Grid.Column="0" 
                    FontWeight="Bold" HorizontalAlignment="Stretch" 
                    HorizontalContentAlignment="Left"
                    Margin="8 0">Input</Label>
             <TextBox Grid.Row="6" Grid.Column="0" Text="{Binding InputText}" Margin="4 0 4 4" AcceptsReturn="True"
                      VerticalContentAlignment="Top" FontFamily="{StaticResource UbuntuFont}" FontSize="18"></TextBox>
-
-            <Label Grid.Row="5" Grid.Column="2" 
+            
+            <!--Result-->
+			<Label Grid.Row="5" Grid.Column="2" 
                    FontWeight="Bold" HorizontalAlignment="Stretch" 
                    HorizontalContentAlignment="Left"
                    Margin="8 0">Result</Label>
 
             <TextBox Grid.Row="6" Grid.Column="2" IsReadOnly="True" Text="{Binding TextResult, Mode=OneWay}"
                      VerticalContentAlignment="Top" IsVisible="{Binding ShowListResult, Converter={x:Static BoolConverters.Not}, Mode=OneWay}"
-                     FontFamily="{StaticResource UbuntuFont}" FontSize="18"></TextBox>
+                     FontFamily="{StaticResource UbuntuFont}" FontSize="18"
+                     Margin="4 0 4 4"></TextBox>
 
-            <ListBox Grid.Row="6" Grid.Column="2"  ItemsSource="{Binding ListResult, Mode=OneWay}"
-                     IsVisible="{Binding ShowListResult, Mode=OneWay}" 
-                     SelectionMode="Single">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Text, Mode=OneWay, StringFormat='[{0}]'}"></TextBlock>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-
+            <DataGrid Grid.Row="6" Grid.Column="2" Margin="4 0 4 4" ItemsSource="{Binding ListResult, Mode=OneWay}"
+                     SelectionMode="Single" IsVisible="{Binding ShowListResult, Mode=OneWay}" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Position" Binding="{Binding Position}" Width="100"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Text" Binding="{Binding Text}" ></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            
 		</Grid>
 
         <!--Regex Analyzer-->

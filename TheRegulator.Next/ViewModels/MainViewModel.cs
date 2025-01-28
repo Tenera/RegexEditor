@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
@@ -19,11 +18,22 @@ public class MainViewModel : ViewModelBase
 {
     private ISukiDialogManager? _dialogManager;
     private ISukiToastManager? _toastManager;
+
     private TextBox? _editor;
+
     private string? _inputText;
     private string? _replaceText;
     private bool _showListResult;
     private string _analyzeResult = string.Empty;
+    private bool _ignoreCase = true;
+    private bool _multiLine = true;
+    private bool _singleLine;
+    private bool _ignoreWhitespace = true;
+    private bool _rightToLeft;
+    private bool _explicitCapture;
+    private bool _ecmaScript;
+    private bool _cultureInvariant;
+    private bool _nonBacktracking;
 
     public TextBox? Editor
     {
@@ -57,6 +67,60 @@ public class MainViewModel : ViewModelBase
     {
         get => _analyzeResult;
         set => SetProperty(ref _analyzeResult, value);
+    }
+
+    public bool IgnoreCase
+    {
+        get => _ignoreCase;
+        set => SetProperty(ref _ignoreCase, value);
+    }
+
+    public bool MultiLine
+    {
+        get => _multiLine;
+        set => SetProperty(ref _multiLine, value);
+    }
+
+    public bool SingleLine
+    {
+        get => _singleLine;
+        set => SetProperty(ref _singleLine, value);
+    }
+
+    public bool IgnoreWhitespace
+    {
+        get => _ignoreWhitespace;
+        set => SetProperty(ref _ignoreWhitespace, value);
+    }
+
+    public bool RightToLeft
+    {
+        get => _rightToLeft;
+        set => SetProperty(ref _rightToLeft, value);
+    }
+
+    public bool ExplicitCapture
+    {
+        get => _explicitCapture;
+        set => SetProperty(ref _explicitCapture, value);
+    }
+
+    public bool EcmaScript
+    {
+        get => _ecmaScript;
+        set => SetProperty(ref _ecmaScript, value);
+    }
+
+    public bool CultureInvariant
+    {
+        get => _cultureInvariant;
+        set => SetProperty(ref _cultureInvariant, value);
+    }
+
+    public bool NonBacktracking
+    {
+        get => _nonBacktracking;
+        set => SetProperty(ref _nonBacktracking, value);
     }
 
     public string TextResult { get; set; } = string.Empty;
@@ -166,7 +230,7 @@ public class MainViewModel : ViewModelBase
         {
             ListResult.Clear();
 
-            var regex = new Regex(Editor.Text);
+            var regex = GetRegex();
             foreach (var capture in regex.Matches(InputText).SelectMany(x => x.Captures))
             {
                 ListResult.Add(new MatchViewModel(capture.Value, capture.Index));
@@ -195,7 +259,7 @@ public class MainViewModel : ViewModelBase
 
         try
         {
-            var regex = new Regex(Editor.Text);
+            var regex = GetRegex();
             TextResult = regex.Replace(InputText, _replaceText ?? string.Empty);
             OnPropertyChanged(nameof(TextResult));
             ShowListResult = false;
@@ -224,7 +288,7 @@ public class MainViewModel : ViewModelBase
         {
             ListResult.Clear();
 
-            var regex = new Regex(Editor.Text);
+            var regex = GetRegex();
             var sb = new StringBuilder();
             foreach (var split in regex.Split(InputText))
             {
@@ -258,7 +322,22 @@ public class MainViewModel : ViewModelBase
             AnalyzeResult = string.Empty;
         }
     }
-    
+
+    private Regex GetRegex()
+    {
+        var options = RegexOptions.None;
+        if (IgnoreCase) options |= RegexOptions.IgnoreCase;
+        if (MultiLine) options |= RegexOptions.Multiline;
+        if (SingleLine) options |= RegexOptions.Singleline;
+        if (IgnoreWhitespace) options |= RegexOptions.IgnorePatternWhitespace;
+        if (RightToLeft) options |= RegexOptions.RightToLeft;
+        if (ExplicitCapture) options |= RegexOptions.ExplicitCapture;
+        if (EcmaScript) options |= RegexOptions.ECMAScript;
+        if (CultureInvariant) options |= RegexOptions.CultureInvariant;
+        if (NonBacktracking) options |= RegexOptions.NonBacktracking;
+        return new Regex(Editor.Text, options);
+    }
+
     private void ShowToast(string title, string content, NotificationType type)
     {
         _toastManager.CreateToast()

@@ -21,12 +21,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="menu.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
-
-	<ItemGroup>
 		<InternalsVisibleTo Include="$(AssemblyName).Tests" />
 	</ItemGroup>
 

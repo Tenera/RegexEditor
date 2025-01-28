@@ -7,9 +7,12 @@
                    xmlns:viewModels="clr-namespace:TheRegulator.Next.ViewModels"
                    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
                    x:Class="TheRegulator.Next.Views.MainWindow"
-                   Icon="/Assets/avalonia-logo.ico"
-                   Title="TheRegulator.Next">
+                   Title="TheRegulator.Next" BackgroundStyle="Bubble">
 
+	<sukiUi:SukiWindow.LogoContent>
+        <Image Margin="0" Height="32" Width="32"
+               Source="avares://TheRegulator.Next/Assets/avalonia-logo.ico"/>
+    </sukiUi:SukiWindow.LogoContent>
     <sukiUi:SukiWindow.Hosts>
         <sukiUi:SukiDialogHost Name="DialogHost" />
         <sukiUi:SukiToastHost Name="ToastHost" />
