@@ -6,7 +6,11 @@ Regex editor to build and test regexes (based on The Regulator)
 
 The Regulator is a .NET 2.0 Winforms application, developed in 2004 by Roy Osherove. 
 It is a very feature rich tool to develop and test regular expressions for .NET applications.
+
+
 Unfortunately it uses ComponentOne and Syncfusion controls, so it is impossible to fork and upgrade to newer versions of .NET without licenses for these component libraries.
+
+
 
 This is how the UI looked:
 
@@ -16,4 +20,4 @@ Because of these expensive dependencies and to include MacOS and Linux users, I 
 
 This is how the UI looks now:
 
-[TheRegulator.Next UI](https://github.com/Tenera/RegexEditor/blob/main/Images/Screenshot.png?raw=true)
+![TheRegulator.Next UI](https://github.com/Tenera/RegexEditor/blob/main/Images/Screenshot.png?raw=true)
