@@ -1,5 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿/*
+ * Original code written by Eric Gunnerson
+ * for his Regex Workbench tool:
+ * http://www.gotdotnet.com/Community/UserSamples/Details.aspx?SampleGuid=43D952B8-AFC6-491B-8A5F-01EBD32F2A6C
+ * */
+using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Text.RegularExpressions;
 
 namespace TheRegulator.Next.RegexParsing;
@@ -8,7 +13,7 @@ internal partial class RegexCharacter : RegexItem
 {
     private string _character;
 
-    private static readonly ReadOnlyDictionary<char, string> Escaped = new Dictionary<char, string>
+    private static readonly ImmutableDictionary<char, string> Escaped = new Dictionary<char, string>
     {
         { 'a', "A bell (alarm) \\u0007 " },
         { 'b', "Word boundary between //w and //W" },
@@ -28,7 +33,7 @@ internal partial class RegexCharacter : RegexItem
         { 'A', "Anchor to start of string (ignore multiline)" },
         { 'Z', "Anchor to end of string or before \\n (ignore multiline)" },
         { 'z', "Anchor to end of string (ignore multiline)" }
-    }.AsReadOnly();
+    }.ToImmutableDictionary();
 
     public bool Special { get; private set; }
 
