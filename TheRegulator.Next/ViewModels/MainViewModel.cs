@@ -195,7 +195,7 @@ public class MainViewModel : ViewModelBase
         };
     }
 
-    private void AddText(string toAdd)
+    private void AddText(string? toAdd)
     {
         if (string.IsNullOrEmpty(toAdd)) { return; }
 

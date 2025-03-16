@@ -8,6 +8,7 @@
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>avalonia-logo.ico</ApplicationIcon>
+    <PublishAot>true</PublishAot>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="avalonia-logo.ico" />
