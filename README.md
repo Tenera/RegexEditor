@@ -23,4 +23,4 @@ In the **publish** folder, you can find some OS specific builds.
 
 You can just put the content of the folder somewhere on your local drive and run the exe. 
 
-I used a free icon from **Jonathan Patterson**, from his Stash icon pack on the [Iconfinder website](https://www.iconfinder.com/iconsets/stash).
+For the application icon I used a free icon from **Jonathan Patterson**, from his Stash icon pack on the [Iconfinder website](https://www.iconfinder.com/iconsets/stash).

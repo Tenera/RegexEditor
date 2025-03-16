@@ -1,17 +1,22 @@
-﻿using System;
+﻿/*
+ * Original code written by Eric Gunnerson
+ * for his Regex Workbench tool:
+ * http://www.gotdotnet.com/Community/UserSamples/Details.aspx?SampleGuid=43D952B8-AFC6-491B-8A5F-01EBD32F2A6C
+ * */
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Collections.Immutable;
 using System.Text.RegularExpressions;
 
 namespace TheRegulator.Next.RegexParsing;
 
 internal partial class RegexCapture : RegexItem
 {
-    private RegexItem? expression;
+    private RegexItem? _expression;
     private string _description = "Capture";
-    private int _startLocation;
+    private readonly int _startLocation;
 
-    private static readonly ReadOnlyDictionary<string, string> OptionNames = new Dictionary<string, string>()
+    private static readonly ImmutableDictionary<string, string> OptionNames = new Dictionary<string, string>()
     {
         { "i", "Ignore Case" },
         { "-i", "Ignore Case Off" },
@@ -23,13 +28,18 @@ internal partial class RegexCapture : RegexItem
         { "-s", "Singleline Off" },
         { "x", "Ignore Whitespace" },
         { "-x", "Ignore Whitespace Off" },
-    }.AsReadOnly();
+    }.ToImmutableDictionary();
 
     public RegexCapture(RegexBuffer buffer)
     {
         _startLocation = buffer.Offset;
         buffer.MoveNext();
+
+        // we're not in a series of normal characters, so clear
         buffer.ClearInSeries();
+
+        // if the first character of the capture is a '?',
+        // we need to decode what comes after it.
         if (buffer.Current == '?')
         {
             var flag = CheckNamed(buffer);
@@ -63,6 +73,7 @@ internal partial class RegexCapture : RegexItem
                 CheckConditional(buffer);
             }
         }
+        // plain old capture...
         else if (!HandlePlainOldCapture(buffer))
         {
             throw new Exception($"Unrecognized capture: {buffer.String}");
@@ -72,11 +83,13 @@ internal partial class RegexCapture : RegexItem
 
     private void CheckClosingParen(RegexBuffer buffer)
     {
+        // check for closing ")"
         char current;
         try
         {
             current = buffer.Current;
         }
+        // no closing brace. Set highlight for this capture...
         catch (Exception ex)
         {
             buffer.ErrorLocation = _startLocation;
@@ -93,11 +106,13 @@ internal partial class RegexCapture : RegexItem
 
     private bool HandlePlainOldCapture(RegexBuffer buffer)
     {
+        // we're already at the expression. Just create a new expression,
+        // and make sure that we're at a ")" when we're done
         if (buffer.ExplicitCapture)
         {
             _description = "Non-capturing Group";
         }
-        expression = new RegexExpression(buffer);
+        _expression = new RegexExpression(buffer);
         CheckClosingParen(buffer);
         return true;
     }
@@ -112,7 +127,7 @@ internal partial class RegexCapture : RegexItem
 
         _description = $"Capture to <{match.Groups["Name"]}>";
         buffer.Offset += match.Groups["Rest"].Index;
-        expression = new RegexExpression(buffer);
+        _expression = new RegexExpression(buffer);
         CheckClosingParen(buffer);
         return true;
     }
@@ -127,7 +142,7 @@ internal partial class RegexCapture : RegexItem
 
         _description = "Non-capturing Group";
         buffer.Offset += match.Groups["Rest"].Index;
-        expression = new RegexExpression(buffer);
+        _expression = new RegexExpression(buffer);
         CheckClosingParen(buffer);
         return true;
     }
@@ -142,7 +157,7 @@ internal partial class RegexCapture : RegexItem
 
         _description = $"Balancing Group <{match.Groups["Name1"]}>-<{match.Groups["Name2"]}>";
         buffer.Offset += match.Groups["Rest"].Index;
-        expression = new RegexExpression(buffer);
+        _expression = new RegexExpression(buffer);
         CheckClosingParen(buffer);
         return true;
     }
@@ -157,7 +172,7 @@ internal partial class RegexCapture : RegexItem
 
         var key = match.Groups["Options"].Value;
         _description = $"Set options to {RegexCapture.OptionNames[key]}";
-        expression = null;
+        _expression = null;
         buffer.Offset += match.Groups[0].Length;
         return true;
     }
@@ -179,7 +194,7 @@ internal partial class RegexCapture : RegexItem
             _ => _description
         };
         buffer.Offset += match.Groups["Rest"].Index;
-        expression = new RegexExpression(buffer);
+        _expression = new RegexExpression(buffer);
         CheckClosingParen(buffer);
         return true;
     }
@@ -194,7 +209,7 @@ internal partial class RegexCapture : RegexItem
 
         _description = "Non-backtracking subexpression";
         buffer.Offset += match.Groups["Rest"].Index;
-        expression = new RegexExpression(buffer);
+        _expression = new RegexExpression(buffer);
         CheckClosingParen(buffer);
         return true;
     }
@@ -209,16 +224,16 @@ internal partial class RegexCapture : RegexItem
 
         _description = "Conditional Subexpression";
         buffer.Offset += match.Groups["Rest"].Index;
-        expression = new RegexConditional(buffer);
+        _expression = new RegexConditional(buffer);
         return true;
     }
 
     public string ToString(int indent)
     {
         var str = _description;
-        if (expression != null)
+        if (_expression != null)
         {
-            str = str + "\r\n" + expression.ToString(indent + 2) + new string(' ', indent) + "End Capture";
+            str = str + "\r\n" + _expression.ToString(indent + 2) + new string(' ', indent) + "End Capture";
         }
         return str;
     }

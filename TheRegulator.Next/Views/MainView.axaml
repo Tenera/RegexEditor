@@ -49,7 +49,7 @@
                 <Label VerticalAlignment="Center" FontSize="16">| Options:</Label>
                 <ToggleButton i:Attached.Icon="fa-font" ToolTip.Tip="Ignore case" Padding="8" IsChecked="{Binding IgnoreCase}"></ToggleButton>
                 <ToggleButton i:Attached.Icon="fa-bars" ToolTip.Tip="Multiline" Padding="8" IsChecked="{Binding MultiLine}"></ToggleButton>
-                <ToggleButton i:Attached.Icon="fa-ellipsis" ToolTip.Tip="Single line" Padding="8" IsChecked="{Binding SingleLine}"></ToggleButton>
+                <ToggleButton i:Attached.Icon="fa-minus" ToolTip.Tip="Single line" Padding="8" IsChecked="{Binding SingleLine}"></ToggleButton>
                 <ToggleButton i:Attached.Icon="fa-eye-slash" ToolTip.Tip="Ignore whitespace" Padding="8" IsChecked="{Binding IgnoreWhitespace}"></ToggleButton>
                 <ToggleButton i:Attached.Icon="fa-left-long" ToolTip.Tip="Right to left" Padding="8" IsChecked="{Binding RightToLeft}"></ToggleButton>
                 <ToggleButton i:Attached.Icon="fa-vector-square" ToolTip.Tip="Explicit capture" Padding="8" IsChecked="{Binding ExplicitCapture}"></ToggleButton>
