@@ -19,8 +19,31 @@ This is how the UI looks now in light mode:
 
 ![TheRegulator.Next UI](https://github.com/Tenera/RegexEditor/blob/main/Images/Screenshot.png?raw=true)
 
-In the **publish** folder, you can find some OS specific builds. 
+## Download
 
-You can just put the content of the folder somewhere on your local drive and run the exe. 
+Pre-built binaries for Windows, Linux, and macOS are available on the [Releases](https://github.com/Tenera/RegexEditor/releases) page. Download the zip for your platform, extract it, and run the executable.
+
+## Build from source
+
+Requires [.NET 10 SDK](https://dotnet.microsoft.com/download).
+
+```bash
+dotnet build TheRegulator.sln
+dotnet run --project src/TheRegulator.Next
+```
+
+## Run tests
+
+```bash
+dotnet test src/TheRegulator.Next.Tests
+```
+
+## Project structure
+
+```
+src/
+  TheRegulator.Next/         # Main application (Avalonia 12 + SukiUI)
+  TheRegulator.Next.Tests/   # Unit tests (NUnit)
+```
 
 For the application icon I used a free icon from **Jonathan Patterson**, from his Stash icon pack on the [Iconfinder website](https://www.iconfinder.com/iconsets/stash).
