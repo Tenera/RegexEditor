@@ -1,72 +1,71 @@
+using FluentAssertions;
 using TheRegulator.Next.RegexParsing;
+using Xunit;
 
 namespace TheRegulator.Next.Tests;
 
-[TestFixture]
 public class TestInterpretOptions
 {
     private string Interpret(string regex)
-    {
-        return new RegexExpression(new RegexBuffer(regex)).ToString(0).ReplaceLineEndings("\n");
-    }
+        => new RegexExpression(new RegexBuffer(regex)).ToString(0).ReplaceLineEndings("\n");
 
-    [Test]
+    [Fact]
     public void TestIgnoreCase()
     {
-        Assert.AreEqual("Set options to Ignore Case\n", Interpret("(?i:)"));
+        Interpret("(?i:)").Should().Be("Set options to Ignore Case\n");
     }
 
-    [Test]
+    [Fact]
     public void TestIgnoreCaseOff()
     {
-        Assert.AreEqual("Set options to Ignore Case Off\n", Interpret("(?-i:)"));
+        Interpret("(?-i:)").Should().Be("Set options to Ignore Case Off\n");
     }
 
-    [Test]
+    [Fact]
     public void TestMultiline()
     {
-        Assert.AreEqual("Set options to Multiline\n", Interpret("(?m:)"));
+        Interpret("(?m:)").Should().Be("Set options to Multiline\n");
     }
 
-    [Test]
+    [Fact]
     public void TestMultilineOff()
     {
-        Assert.AreEqual("Set options to Multiline Off\n", Interpret("(?-m:)"));
+        Interpret("(?-m:)").Should().Be("Set options to Multiline Off\n");
     }
 
-    [Test]
+    [Fact]
     public void TestExplicitCapture()
     {
-        Assert.AreEqual("Set options to Explicit Capture\n", Interpret("(?n:)"));
+        Interpret("(?n:)").Should().Be("Set options to Explicit Capture\n");
     }
 
-    [Test]
+    [Fact]
     public void TestExplicitCaptureOff()
     {
-        Assert.AreEqual("Set options to Explicit Capture Off\n", Interpret("(?-n:)"));
+        Interpret("(?-n:)").Should().Be("Set options to Explicit Capture Off\n");
     }
 
-    [Test]
+    [Fact]
     public void TestSingleline()
     {
-        Assert.AreEqual("Set options to Singleline\n", Interpret("(?s:)"));
+        Interpret("(?s:)").Should().Be("Set options to Singleline\n");
     }
 
-    [Test]
+    [Fact]
     public void TestSinglelineOff()
     {
-        Assert.AreEqual("Set options to Singleline Off\n", Interpret("(?-s:)"));
+        Interpret("(?-s:)").Should().Be("Set options to Singleline Off\n");
     }
 
-    [Test]
+    [Fact]
     public void TestIgnoreWhitespace()
     {
-        Assert.AreEqual("Set options to Ignore Whitespace\n", Interpret("(?x:)"));
+        Interpret("(?x:)").Should().Be("Set options to Ignore Whitespace\n");
     }
 
-    [Test]
+    [Fact]
     public void TestIgnoreWhitespaceOff()
     {
-        Assert.AreEqual("Set options to Ignore Whitespace Off\n", Interpret("(?-x:)"));
+        Interpret("(?-x:)").Should().Be("Set options to Ignore Whitespace Off\n");
     }
 }

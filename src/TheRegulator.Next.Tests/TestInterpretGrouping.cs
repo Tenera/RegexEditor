@@ -1,72 +1,71 @@
+using FluentAssertions;
 using TheRegulator.Next.RegexParsing;
+using Xunit;
 
 namespace TheRegulator.Next.Tests;
 
-[TestFixture]
 public class TestInterpretGrouping
 {
     private string Interpret(string regex)
-    {
-        return new RegexExpression(new RegexBuffer(regex)).ToString(0).ReplaceLineEndings("\n");
-    }
+        => new RegexExpression(new RegexBuffer(regex)).ToString(0).ReplaceLineEndings("\n");
 
-    [Test]
+    [Fact]
     public void TestCapture()
     {
-        Assert.AreEqual("Capture\n  abc\nEnd Capture\n", Interpret("(abc)"));
+        Interpret("(abc)").Should().Be("Capture\n  abc\nEnd Capture\n");
     }
 
-    [Test]
+    [Fact]
     public void TestNamedCapture()
     {
-        Assert.AreEqual("Capture to <L>\n  abc\nEnd Capture\n", Interpret("(?<L>abc)"));
+        Interpret("(?<L>abc)").Should().Be("Capture to <L>\n  abc\nEnd Capture\n");
     }
 
-    [Test]
+    [Fact]
     public void TestNonCapture()
     {
-        Assert.AreEqual("Non-capturing Group\n  abc\nEnd Capture\n", Interpret("(?:abc)"));
+        Interpret("(?:abc)").Should().Be("Non-capturing Group\n  abc\nEnd Capture\n");
     }
 
-    [Test]
+    [Fact]
     public void TestAlternation()
     {
-        Assert.AreEqual("Capture\n  a\n    or\n  b\nEnd Capture\n", Interpret("(a|b)"));
+        Interpret("(a|b)").Should().Be("Capture\n  a\n    or\n  b\nEnd Capture\n");
     }
 
-    [Test]
+    [Fact]
     public void TestPositiveLookahead()
     {
-        Assert.AreEqual("zero-width positive lookahead\n  a\nEnd Capture\n", Interpret("(?=a)"));
+        Interpret("(?=a)").Should().Be("zero-width positive lookahead\n  a\nEnd Capture\n");
     }
 
-    [Test]
+    [Fact]
     public void TestNegativeLookahead()
     {
-        Assert.AreEqual("zero-width negative lookahead\n  b\nEnd Capture\n", Interpret("(?!b)"));
+        Interpret("(?!b)").Should().Be("zero-width negative lookahead\n  b\nEnd Capture\n");
     }
 
-    [Test]
+    [Fact]
     public void TestPositiveLookbehind()
     {
-        Assert.AreEqual("zero-width positive lookbehind\n  c\nEnd Capture\n", Interpret("(?<=c)"));
+        Interpret("(?<=c)").Should().Be("zero-width positive lookbehind\n  c\nEnd Capture\n");
     }
 
-    [Test]
+    [Fact]
     public void TestNegativeLookbehind()
     {
-        Assert.AreEqual("zero-width negative lookbehind\n  d\nEnd Capture\n", Interpret("(?<!d)"));
+        Interpret("(?<!d)").Should().Be("zero-width negative lookbehind\n  d\nEnd Capture\n");
     }
 
-    [Test]
+    [Fact]
     public void TestConditionalExpression()
     {
-        Assert.AreEqual("Conditional Subexpression\n  if: abc\n  match: yes\n  else match: no\nEnd Capture\n", Interpret("(?(abc)yes|no)"));
+        Interpret("(?(abc)yes|no)").Should().Be("Conditional Subexpression\n  if: abc\n  match: yes\n  else match: no\nEnd Capture\n");
     }
 
-    [Test]
+    [Fact]
     public void TestConditionalNamed()
     {
-        Assert.AreEqual("Conditional Subexpression\n  if: <V>\n  match: yes\n  else match: no\nEnd Capture\n", Interpret("(?(<V>)yes|no)"));
+        Interpret("(?(<V>)yes|no)").Should().Be("Conditional Subexpression\n  if: <V>\n  match: yes\n  else match: no\nEnd Capture\n");
     }
 }

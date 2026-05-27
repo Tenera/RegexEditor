@@ -1,52 +1,53 @@
+using FluentAssertions;
 using TheRegulator.Next.RegexParsing;
+using Xunit;
 
 namespace TheRegulator.Next.Tests;
 
-[TestFixture]
 public class TestInterpretAnchor
 {
     private string Interpret(string regex)
-    {
-        return new RegexExpression(new RegexBuffer(regex)).ToString(0).ReplaceLineEndings("\n");
-    }
+        => new RegexExpression(new RegexBuffer(regex)).ToString(0).ReplaceLineEndings("\n");
 
-    [Test]
+    [Fact]
     public void TestBegOfString()
     {
-        Assert.AreEqual("^ (anchor to start of string)\n", Interpret("^"));
+        Interpret("^").Should().Be("^ (anchor to start of string)\n");
     }
 
-    [Test]
+    [Fact]
     public void TestBegOfStringMultiline()
     {
-        Assert.AreEqual("Anchor to start of string (ignore multiline)\n", Interpret("\\A"));
+        Interpret("\\A").Should().Be("Anchor to start of string (ignore multiline)\n");
     }
 
-    [Test]
+    [Fact]
     public void TestEndOfString()
     {
-        Assert.AreEqual("$ (anchor to end of string)\n", Interpret("$"));
+        Interpret("$").Should().Be("$ (anchor to end of string)\n");
     }
 
-    [Test]
+    [Fact]
     public void TestEndOfStringMultiline()
     {
-        Assert.AreEqual("Anchor to end of string or before \\n (ignore multiline)\n", Interpret("\\Z"));
+        Interpret("\\Z").Should().Be("Anchor to end of string or before \\n (ignore multiline)\n");
     }
 
-    [Test]
+    [Fact]
     public void TestEndOfStringMultiline2()
     {
-        Assert.AreEqual("Anchor to end of string (ignore multiline)\n", Interpret("\\z"));
+        Interpret("\\z").Should().Be("Anchor to end of string (ignore multiline)\n");
     }
 
+    [Fact]
     public void TestWordBoundary()
     {
-        Assert.AreEqual("Word boundary between //w and //W\n", Interpret("\\b"));
+        Interpret("\\b").Should().Be("Word boundary between //w and //W\n");
     }
 
+    [Fact]
     public void TestNonWordBoundary()
     {
-        Assert.AreEqual("Not at a word boundary between //w and //W\n", Interpret("\\B"));
+        Interpret("\\B").Should().Be("Not at a word boundary between //w and //W\n");
     }
 }
