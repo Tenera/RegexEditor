@@ -20,7 +20,7 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Run tests
-        run: dotnet test TheRegulator.Next.Tests/TheRegulator.Next.Tests.csproj --configuration Release
+        run: dotnet test src/TheRegulator.Next.Tests/TheRegulator.Next.Tests.csproj --configuration Release
 
   build:
     needs: test
@@ -47,7 +47,7 @@ jobs:
 
       - name: Publish
         run: >
-          dotnet publish TheRegulator.Next.Desktop/TheRegulator.Next.Desktop.csproj
+          dotnet publish src/TheRegulator.Next.Desktop/TheRegulator.Next.Desktop.csproj
           --configuration Release
           --runtime ${{ matrix.rid }}
           --self-contained
