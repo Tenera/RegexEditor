@@ -4,10 +4,6 @@ VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheRegulator.Next", "src\TheRegulator.Next\TheRegulator.Next.csproj", "{9058B868-5D1A-47FF-922F-7A18685C30E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheRegulator.Next.Browser", "src\TheRegulator.Next.Browser\TheRegulator.Next.Browser.csproj", "{BFADDFDC-EA5D-49EC-BFD7-F30F3E65783E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheRegulator.Next.Desktop", "src\TheRegulator.Next.Desktop\TheRegulator.Next.Desktop.csproj", "{AD4C426C-509B-422E-A841-C3B14C03EF28}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheRegulator.Next.Tests", "src\TheRegulator.Next.Tests\TheRegulator.Next.Tests.csproj", "{D3877A2B-0259-4B55-A859-9E9149D5B47B}"
 EndProject
 Global
@@ -26,22 +22,6 @@ Global
 		{9058B868-5D1A-47FF-922F-7A18685C30E9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9058B868-5D1A-47FF-922F-7A18685C30E9}.Release-XML|Any CPU.ActiveCfg = Release|Any CPU
 		{9058B868-5D1A-47FF-922F-7A18685C30E9}.Release-XML|Any CPU.Build.0 = Release|Any CPU
-		{BFADDFDC-EA5D-49EC-BFD7-F30F3E65783E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BFADDFDC-EA5D-49EC-BFD7-F30F3E65783E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BFADDFDC-EA5D-49EC-BFD7-F30F3E65783E}.Debug-XML|Any CPU.ActiveCfg = Debug|Any CPU
-		{BFADDFDC-EA5D-49EC-BFD7-F30F3E65783E}.Debug-XML|Any CPU.Build.0 = Debug|Any CPU
-		{BFADDFDC-EA5D-49EC-BFD7-F30F3E65783E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BFADDFDC-EA5D-49EC-BFD7-F30F3E65783E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BFADDFDC-EA5D-49EC-BFD7-F30F3E65783E}.Release-XML|Any CPU.ActiveCfg = Release|Any CPU
-		{BFADDFDC-EA5D-49EC-BFD7-F30F3E65783E}.Release-XML|Any CPU.Build.0 = Release|Any CPU
-		{AD4C426C-509B-422E-A841-C3B14C03EF28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AD4C426C-509B-422E-A841-C3B14C03EF28}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AD4C426C-509B-422E-A841-C3B14C03EF28}.Debug-XML|Any CPU.ActiveCfg = Debug|Any CPU
-		{AD4C426C-509B-422E-A841-C3B14C03EF28}.Debug-XML|Any CPU.Build.0 = Debug|Any CPU
-		{AD4C426C-509B-422E-A841-C3B14C03EF28}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AD4C426C-509B-422E-A841-C3B14C03EF28}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AD4C426C-509B-422E-A841-C3B14C03EF28}.Release-XML|Any CPU.ActiveCfg = Release|Any CPU
-		{AD4C426C-509B-422E-A841-C3B14C03EF28}.Release-XML|Any CPU.Build.0 = Release|Any CPU
 		{D3877A2B-0259-4B55-A859-9E9149D5B47B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D3877A2B-0259-4B55-A859-9E9149D5B47B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3877A2B-0259-4B55-A859-9E9149D5B47B}.Debug-XML|Any CPU.ActiveCfg = Debug|Any CPU

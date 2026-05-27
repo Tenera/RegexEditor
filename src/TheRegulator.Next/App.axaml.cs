@@ -23,14 +23,6 @@ public partial class App : Application
             mainWindow.DataContext = vm;
             desktop.MainWindow = mainWindow;
         }
-        else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
-        {
-            singleViewPlatform.MainView = new MainView
-            {
-                DataContext = new MainViewModel()
-            };
-        }
-
         base.OnFrameworkInitializationCompleted();
     }
 }
